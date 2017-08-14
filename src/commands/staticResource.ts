@@ -231,7 +231,7 @@ function makeResourceMetadata(bundleName, content) {
             description: 'spa data files',
             content: content,
             contentType: 'application/zip',
-            cacheControl: 'Private',
+            cacheControl: 'Public',
         },
     ];
 }
