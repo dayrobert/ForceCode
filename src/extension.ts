@@ -80,7 +80,7 @@ export function activate(context: vscode.ExtensionContext): any {
             commands.compile(textDocument, context);
         }  
 
-        var isResource = textDocument.fileName.match(/resource\-bundles*$/); // We are in a resource-bundles folder, bundle and deploy the staticResource
+        var isResource = textDocument.fileName.match(/resource\-bundles.*$/); // We are in a resource-bundles folder, bundle and deploy the staticResource
         if ( null != isResource && isResource.index && vscode.window.forceCode.config && vscode.window.forceCode.config.autoCompile === true) {
             commands.staticResourceDeployFromFile(textDocument, context);
         }

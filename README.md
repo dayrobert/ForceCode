@@ -1,10 +1,9 @@
-[![Logo](https://rawgithub.com/celador/ForceCode/Documentation/images/logo-type.svg)](https://marketplace.visualstudio.com/items?itemName=JohnAaronNelson.ForceCode)
+(https://marketplace.visualstudio.com/items?itemName=JohnAaronNelson.ForceCode)
 
 # ForceCode for Visual Studio Code
 
-[![Version](http://vsmarketplacebadge.apphb.com/version/JohnAaronNelson.ForceCode.svg)](https://marketplace.visualstudio.com/items?itemName=JohnAaronNelson.ForceCode)
-[![Installs](http://vsmarketplacebadge.apphb.com/installs/JohnAaronNelson.ForceCode.svg)](https://marketplace.visualstudio.com/items?itemName=JohnAaronNelson.ForceCode)
-[![Ratings](https://vsmarketplacebadge.apphb.com/rating/JohnAaronNelson.ForceCode.svg)](https://vsmarketplacebadge.apphb.com/rating/JohnAaronNelson.ForceCode.svg)
+[![Version]](https://marketplace.visualstudio.com/items?itemName=JohnAaronNelson.ForceCode)
+[![Installs]](https://marketplace.visualstudio.com/items?itemName=JohnAaronNelson.ForceCode)
 
 <iframe
   src="https://carlo.github.io/patreon-buttons/patreon-btn.html?creator=johnaaronnelson"
