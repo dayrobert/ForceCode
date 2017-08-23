@@ -73,8 +73,7 @@ export function staticResourceDeployFromFile(textDocument: vscode.TextDocument, 
     function getPackageName(service: IForceService) {
         let bundlePath: string = vscode.workspace.rootPath + path.sep + 'resource-bundles' + path.sep;
 
-        var splitOn: string = vscode.window.forceCode.config && 
-                              vscode.window.forceCode.config.staticResourceOptions && 
+        var splitOn: string = vscode.window.forceCode.config.staticResourceOptions && 
                               vscode.window.forceCode.config.staticResourceOptions.folderExtension != null ? 
                               vscode.window.forceCode.config.staticResourceOptions.folderExtension : '.resource';
         splitOn = splitOn.length == 0 ? path.sep : splitOn;
