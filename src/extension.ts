@@ -80,8 +80,14 @@ export function activate(context: vscode.ExtensionContext): any {
             commands.compile(textDocument, context);
         }  
 
-        var isResource = textDocument.fileName.match(/resource\-bundles.*$/); // We are in a resource-bundles folder, bundle and deploy the staticResource
-        if ( null != isResource && isResource.index && vscode.window.forceCode.config && vscode.window.forceCode.config.autoCompile === true) {
+        var folderExtension: string =  vscode.window.forceCode.config.staticResourceOptions && 
+                                       vscode.window.forceCode.config.staticResourceOptions.folderExtension != null ? 
+                                       vscode.window.forceCode.config.staticResourceOptions.folderExtension : '.resource';
+
+        var resourceFolderRegEx: RegExp = new RegExp("resource\\-bundles.*" + (folderExtension.length > 0 ? "\\" : "" ) + folderExtension + ".*$");
+
+        var isResource: RegExpMatchArray = textDocument.fileName.match(resourceFolderRegEx); // We are in a resource-bundles folder, bundle and deploy the staticResource
+        if (isResource.index && vscode.window.forceCode.config && vscode.window.forceCode.config.autoCompile === true) {
             commands.staticResourceDeployFromFile(textDocument, context);
         }
     }));

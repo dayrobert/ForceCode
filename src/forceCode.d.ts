@@ -29,6 +29,10 @@ export interface Config {
     src?: string;
     url?: string;
     username?: string;
+    staticResourceOptions?: {
+        folderExtension?: string,
+        defaultCache?: string
+    }
     // workspaceRoot?: string;
 }
 

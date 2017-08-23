@@ -72,7 +72,14 @@ export function staticResourceDeployFromFile(textDocument: vscode.TextDocument, 
     // =======================================================================================================================================
     function getPackageName(service: IForceService) {
         let bundlePath: string = vscode.workspace.rootPath + path.sep + 'resource-bundles' + path.sep;
-        var resourceName: string = textDocument.fileName.split(bundlePath)[1].split(path.sep)[0]; //textDocument.fileName.split(bundlePath)[1].split('.resource')[0];
+
+        var splitOn: string = vscode.window.forceCode.config && 
+                              vscode.window.forceCode.config.staticResourceOptions && 
+                              vscode.window.forceCode.config.staticResourceOptions.folderExtension != null ? 
+                              vscode.window.forceCode.config.staticResourceOptions.folderExtension : '.resource';
+        splitOn = splitOn.length == 0 ? path.sep : splitOn;
+
+        var resourceName: string = textDocument.fileName.split(bundlePath)[1].split(splitOn)[0]; 
         return {
             detail: 'resource-bundle',
             label: resourceName,
@@ -225,13 +232,17 @@ function deploy(zip, packageName) {
  * @return {Metadata[]} - Array with one metadata object
  */
 function makeResourceMetadata(bundleName, content) {
+    var defaultCache: string = vscode.window.forceCode.config.staticResourceOptions && 
+                               vscode.window.forceCode.config.staticResourceOptions.defaultCache != null ? 
+                               vscode.window.forceCode.config.staticResourceOptions.defaultCache : 'Private';
+
     return [
         {
             fullName: bundleName,
             description: 'spa data files',
             content: content,
             contentType: 'application/zip',
-            cacheControl: 'Public',
+            cacheControl: defaultCache,
         },
     ];
 }

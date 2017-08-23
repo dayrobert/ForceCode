@@ -107,7 +107,11 @@ The configuration file should look something like...
       "rollbackOnError": true,
       "testLevel": "runLocalTests",
       "verbose": true,
-    }
+    },
+    "staticResourceOptions":{
+        "defaultCache": "Private",
+        "folderExtension": ".resource"
+    }    
 }
 ```
 
@@ -139,8 +143,12 @@ Note: the password is in the format "passwordtoken".  Do not try to use any deli
   * testLevel:       Specifies which tests are run as part of a deployment Options are: NoTestRun / RunSpecifiedTests / RunLocalTests / RunAllTestsInOrg
   * runTests:        A list of Apex tests to run during deployment \(commma separated list\)
   * verbose:         Output execution detail log to a `DeployStatistics.log` file
-
-There's also one special configuration option that's not included in the force.json, but rather in your vscode settings.json file. This reasoning for separating the files is for portability reasons; to make it easier to share this configuration with others and yourself across projects.  
+* staticResourceOptions: options to configure status resource auto bundle and deploy
+  * defaultCache:    Set the cacheControl for the given resource bundle as either Private or Public
+  * folderExtension: The folder extension associated with a folder that is to be auto bundle and deployed with a file within is modified.
+  
+There's also one special configuration option that's not included in the force.json, but rather in your vscode settings.json file. This 
+reasoning for separating the files is for portability reasons; to make it easier to share this configuration with others and yourself across projects.  
 If you open up your settings.json file, or go to Code &gt; Preferences &gt; Workspace Settings and create a new preference, starting with `force` you should see the filesExclude preference.  
 This property allows you to have certain files ignored \(exluded\) from Static Resources when bundled/deployed.  This allows you to create a modern SPA project in a "spa" folder instead of keeping it in your "resource-bundles" directory.  
 However, when we build these SPAs we generally have a ton of preference and source files that we don't want to deploy to Salesforce, both for security and size reasons.  
