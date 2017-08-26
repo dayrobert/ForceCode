@@ -7,6 +7,7 @@ import { editorUpdateApexCoverageDecorator, documentUpdateApexCoverageDecorator 
 import * as commands from './commands';
 import * as parsers from './parsers';
 import { updateDecorations } from './decorators/testCoverageDecorator';
+import path = require('path');
 
 export function activate(context: vscode.ExtensionContext): any {
     vscode.window.forceCode = new ForceService();
@@ -88,9 +89,45 @@ export function activate(context: vscode.ExtensionContext): any {
 
         var isResource: RegExpMatchArray = textDocument.fileName.match(resourceFolderRegEx); // We are in a resource-bundles folder, bundle and deploy the staticResource
         if (isResource.index && vscode.window.forceCode.config && vscode.window.forceCode.config.autoCompile === true) {
-            commands.staticResourceDeployFromFile(textDocument, context);
+            var uri: vscode.Uri = new vscode.Uri();
+            uri.fsPath = textDocument.fileName;
+            
+            fileWatchAutoBundle(
+            // // check if the type of file modified is supposed to be ignored.
+            // if( vscode.window.forceCode.config.staticResourceOptions && 
+            //     vscode.window.forceCode.config.staticResourceOptions.ignoreTypes != null){
+            //         var types: string[] = vscode.window.forceCode.config.staticResourceOptions.ignoreTypes.split(',');
+            //         if( !types.find( a => { return a.toLowerCase() == textDocument.fileName.toLowerCase(); })) {
+            //             return;
+            //         }
+            //     } 
+                
+            // commands.staticResourceDeployFromFile(textDocument.fileName, context);
         }
     }));
+
+    function fileWatchAutoBundle( filePath: vscode.Uri ) {
+        // check if the type of file modified is supposed to be ignored.
+        if( vscode.window.forceCode.config.staticResourceOptions && 
+            vscode.window.forceCode.config.staticResourceOptions.ignoreTypes != null){
+                var types: string[] = vscode.window.forceCode.config.staticResourceOptions.ignoreTypes.split(',');
+
+                var fileName:string = filePath.fsPath.replace(/^.*[\\\/]/, '');
+                var type = fileName.split['.'][1];
+
+                // parse out the type
+                if( !types.find( a => { return type.toLowerCase() == fileName.toLowerCase(); })) {
+                    return;
+                }
+            } 
+            
+        commands.staticResourceDeployFromFile(filePath.fsPath, context);
+    }
+    
+    // setup the resource bundle folder watchers
+    var sf: vscode.FileSystemWatcher = vscode.workspace.createFileSystemWatcher("**/resource-bundles/**");
+    sf.onDidChange(fileWatchAutoBundle);
+    sf.onDidCreate(fileWatchAutoBundle);
 
     // Code Completion Provider
     context.subscriptions.push(vscode.languages.registerCompletionItemProvider('apex', new ApexCompletionProvider(), '.', '@'));

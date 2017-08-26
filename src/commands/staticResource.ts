@@ -62,7 +62,7 @@ export default function staticResourceBundleDeploy(context: vscode.ExtensionCont
     }
 }
 
-export function staticResourceDeployFromFile(textDocument: vscode.TextDocument, context: vscode.ExtensionContext): any {
+export function staticResourceDeployFromFile(fileName: string, context: vscode.ExtensionContext): any {
     // This command is run when working in a file, and it's saved... It will auto bundle/deploy that static resource 
     return vscode.window.forceCode.connect(context)
         .then(getPackageName)
@@ -78,7 +78,7 @@ export function staticResourceDeployFromFile(textDocument: vscode.TextDocument, 
                               vscode.window.forceCode.config.staticResourceOptions.folderExtension : '.resource';
         splitOn = splitOn.length == 0 ? path.sep : splitOn;
 
-        var resourceName: string = textDocument.fileName.split(bundlePath)[1].split(splitOn)[0]; 
+        var resourceName: string = fileName.split(bundlePath)[1].split(splitOn)[0]; 
         return {
             detail: 'resource-bundle',
             label: resourceName,

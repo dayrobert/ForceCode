@@ -31,7 +31,9 @@ export interface Config {
     username?: string;
     staticResourceOptions?: {
         folderExtension?: string,
-        defaultCache?: string
+        defaultCache?: string,
+        ignoreTypes?: string,
+        watchFolder?: boolean
     }
     // workspaceRoot?: string;
 }
