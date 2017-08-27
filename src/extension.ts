@@ -89,20 +89,16 @@ export function activate(context: vscode.ExtensionContext): any {
 
         var isResource: RegExpMatchArray = textDocument.fileName.match(resourceFolderRegEx); // We are in a resource-bundles folder, bundle and deploy the staticResource
         if (isResource.index && vscode.window.forceCode.config && vscode.window.forceCode.config.autoCompile === true) {
-            var uri: vscode.Uri = new vscode.Uri();
-            uri.fsPath = textDocument.fileName;
-            
-            fileWatchAutoBundle(
-            // // check if the type of file modified is supposed to be ignored.
-            // if( vscode.window.forceCode.config.staticResourceOptions && 
-            //     vscode.window.forceCode.config.staticResourceOptions.ignoreTypes != null){
-            //         var types: string[] = vscode.window.forceCode.config.staticResourceOptions.ignoreTypes.split(',');
-            //         if( !types.find( a => { return a.toLowerCase() == textDocument.fileName.toLowerCase(); })) {
-            //             return;
-            //         }
-            //     } 
+            // check if the type of file modified is supposed to be ignored.
+            if( vscode.window.forceCode.config.staticResourceOptions && 
+                vscode.window.forceCode.config.staticResourceOptions.ignoreTypes != null){
+                    var types: string[] = vscode.window.forceCode.config.staticResourceOptions.ignoreTypes.split(',');
+                    if( !types.find( a => { return a.toLowerCase() == textDocument.fileName.toLowerCase(); })) {
+                        return;
+                    }
+                } 
                 
-            // commands.staticResourceDeployFromFile(textDocument.fileName, context);
+            commands.staticResourceDeployFromFile(textDocument.fileName, context);
         }
     }));
 
@@ -128,7 +124,8 @@ export function activate(context: vscode.ExtensionContext): any {
     var sf: vscode.FileSystemWatcher = vscode.workspace.createFileSystemWatcher("**/resource-bundles/**");
     sf.onDidChange(fileWatchAutoBundle);
     sf.onDidCreate(fileWatchAutoBundle);
-
+    sf.onDidDelete(fileWatchAutoBundle);
+    
     // Code Completion Provider
     context.subscriptions.push(vscode.languages.registerCompletionItemProvider('apex', new ApexCompletionProvider(), '.', '@'));
 
