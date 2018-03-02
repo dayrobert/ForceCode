@@ -1,7 +1,7 @@
 {
-  "name": "ForceCode",
-  "version": "0.5.36",
-  "publisher": "JohnAaronNelson",
+  "name": "BoostCode",
+  "version": "1.0.0",
+  "publisher": "Boost Team",
   "description": "Visual Studio Code extension for Salesforce (SFDC) development",
   "author": {
     "name": "CodeScience"

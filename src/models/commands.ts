@@ -105,4 +105,11 @@ export default {
         icon: 'diff',
         label: 'Diff',
     },
+    // Perform a PMD analysis
+    analyzeCode: {
+        description: 'Perform a PMD analysis against the current file',
+        detail: 'Analyze the file',
+        icon: 'diff',
+        label: 'Analyze',
+    }
 }

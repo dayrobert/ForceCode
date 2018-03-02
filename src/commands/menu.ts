@@ -35,6 +35,7 @@ export default function showMenu(context: vscode.ExtensionContext) {
             quickpick.push(model.soql);
             quickpick.push(model.toql);
             quickpick.push(model.getLogs);
+            quickpick.push(model.analyzeCode);
         }
         let options: vscode.QuickPickItem[] = quickpick.map(record => {
             return {
@@ -68,6 +69,7 @@ export default function showMenu(context: vscode.ExtensionContext) {
                 case model.createClass.description: return commands.createClass(context);
                 case model.runUnitTests.description: return commands.apexTest(vscode.window.activeTextEditor.document, context);
                 case model.dx.description: return commands.dx(context);
+                case model.analyzeCode.description: return commands.analyzeCode(vscode.window.activeTextEditor.document, context);
                 default: break;
             }
         }

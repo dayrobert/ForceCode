@@ -17,6 +17,7 @@ import showMenu from './menu';
 import soql from './soql';
 import staticResource from './staticResource';
 import toql from './toql';
+import analyzeCode from './analyze';
 import {staticResourceDeployFromFile} from './staticResource';
 
 export {
@@ -39,4 +40,5 @@ export {
     staticResource,
     staticResourceDeployFromFile,
     toql,
+    analyzeCode,
 };
